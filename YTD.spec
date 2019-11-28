@@ -4,7 +4,7 @@ block_cipher = None
 
 
 a = Analysis(['YTD.py'],
-             pathex=['E:\\Downloads\\YTD Software'],
+             pathex=['E:\\My Files\\Manuj\\Additionals\\Python\\YTD Software'],
              binaries=[],
              datas=[],
              hiddenimports=[],

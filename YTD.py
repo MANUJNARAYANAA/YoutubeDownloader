@@ -16,30 +16,34 @@ def openDirectory():
 def ytdwn():
     choice=qualitycombo.get()
     video=ytentry.get()
-    if(len(video)>1):
-     ytentryerr.config(text="")
-     print(video,"is at",foldername)
-     yt=YouTube(video)
-     print("Video name is:\n\n",yt.title)
+    try:
+     if(len(video)>1):
+      ytentryerr.config(text="")
+      print(video,"is at",foldername)
+      yt=YouTube(video)
+      print("Video name is:\n\n",yt.title)
 
-     if(choice==dwnchoice[0]):
+      if(choice==dwnchoice[0]):
        print("Video of mp4_720p is being downloaded...")
        loadlbl.config(text="Video of mp4_720 is being downloaded")
        selection=yt.streams.filter(progressive=True).first()
-     elif(choice==dwnchoice[1]):
+      elif(choice==dwnchoice[1]):
        print("Video of mp4_144p is being downloaded...")
        loadlbl.config(text="Video of mp4_144 is being downloaded")
        selection=yt.streams.filter(progressive=True,file_extension="mp4").last()
-     elif(choice==dwnchoice[2]):
+      elif(choice==dwnchoice[2]):
        print("mp3 file is being downloaded...")
        loadlbl.config(text="mp3 file is being downloaded")
        selection=yt.streams.filter(only_audio=True).first()
 
-     selection.download(foldername)
-     complete()  
-    else:
-     ytentryerr.config(text="Please enter an URL to continue",fg="red")
-         
+      selection.download(foldername)
+      complete()  
+
+     else:
+      ytentryerr.config(text="Please enter an URL to continue",fg="red")
+  
+    except:   
+      errlbl.config(text="Error connecting to host,Please try again later",fg="red")
 
 def complete():
     loadlbl.config(text="Download Completed")
@@ -81,5 +85,8 @@ dwnbtn.grid(pady=(10,20))
 
 loadlbl=ttk.Label(root,text="-Developed by Manuj-")
 loadlbl.grid(pady=(0,20))
+
+errlbl=Label(root,text="")
+errlbl.grid(pady=(10,20))
 
 root.mainloop()
